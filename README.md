@@ -1,1 +1,1 @@
-# Pythonfortesting_trainig
+# Repository for Python training for testing
