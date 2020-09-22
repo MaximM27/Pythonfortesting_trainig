@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
+from contact import Contact
 
 class TestAddContact(unittest.TestCase):
     def setUp(self):
@@ -13,7 +14,7 @@ class TestAddContact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
-        self.add_contact(wd, "First name", "Middle Name", "Last Name")
+        self.add_contact(wd, Contact(firstname="First name", middlename="Middle Name", lastname="Last Name"))
         self.return_to_home_page(wd)
         self.logout(wd)
 
@@ -21,7 +22,7 @@ class TestAddContact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, "admin", "secret")
-        self.add_contact(wd, "", "", "")
+        self.add_contact(wd, Contact(firstname="", middlename="", lastname=""))
         self.return_to_home_page(wd)
         self.logout(wd)
 
@@ -33,16 +34,16 @@ class TestAddContact(unittest.TestCase):
         # retutn to home page
         wd.find_element_by_link_text("home page").click()
 
-    def add_contact(self, wd, Firstname, Middlename, Lastname):
+    def add_contact(self, wd, Contact):
         # add contact
         wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(Firstname)
+        wd.find_element_by_name("firstname").send_keys(Contact.firstname)
         wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(Middlename)
+        wd.find_element_by_name("middlename").send_keys(Contact.middlename)
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(Lastname)
+        wd.find_element_by_name("lastname").send_keys(Contact.lastname)
         wd.find_element_by_name("submit").click()
 
     def login(self, wd, username, password):
