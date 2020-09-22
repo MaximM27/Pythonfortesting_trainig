@@ -17,6 +17,14 @@ class TestAddContact(unittest.TestCase):
         self.return_to_home_page(wd)
         self.logout(wd)
 
+    def test_add_empty_contact(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, "admin", "secret")
+        self.add_contact(wd, "", "", "")
+        self.return_to_home_page(wd)
+        self.logout(wd)
+
     def logout(self, wd):
         # logout
         wd.find_element_by_link_text("Logout").click()
