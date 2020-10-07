@@ -39,7 +39,8 @@ class ContactHelper:
     def return_to_home_page(self):
         # retutn to home page
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        if not(wd.current_url_endswith("addressbook/") and len(wd.find_elements_by_name("add")) > 0):
+            wd.find_element_by_link_text("home page").click()
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
