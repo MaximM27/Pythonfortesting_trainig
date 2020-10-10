@@ -63,8 +63,14 @@ class ContactHelper:
         self.select_update_contact()
         self.app.return_to_home_page()
 
+    def open_home_page(self):
+        # open home page
+        wd = self.app.wd
+        wd.get("http://localhost/addressbook/")
+
     def count(self):
         wd = self.app.wd
+        self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
 
