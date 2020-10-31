@@ -15,7 +15,7 @@ except getopt.GetoptError as err:
 
 
 def random_string(maxlen):
-    symbols = string.ascii_letters + " "*5
+    symbols = string.ascii_letters + " "*2
     return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
