@@ -147,6 +147,8 @@ class ContactHelper:
                                                   all_emails_from_home_page=all_emails, all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
+    #def get_contact_info_from_home_page(self, id, index):
+
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
@@ -171,6 +173,20 @@ class ContactHelper:
         return Contact(firstname=firstname, lastname=lastname, id=id, address=address,
                        email=email, email2=email2, email3=email3,
                        homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
+
+    def get_contact_info_from_home_page(self, index, id):
+
+        cells = row.find_elements_by_tag_name("td")
+        lastname = cells[1].text
+        firstname = cells[2].text
+        id = cells[0].find_element_by_name("selected[]").get_attribute("id")
+        address = cells[3].text
+        all_emails = cells[4].text
+        all_phones = cells[5].text
+        self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id, address=address,
+                                        all_emails_from_home_page=all_emails, all_phones_from_home_page=all_phones))
+        return list(self.contact_cache)
+
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
