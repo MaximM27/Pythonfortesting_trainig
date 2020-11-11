@@ -147,7 +147,17 @@ class ContactHelper:
                                                   all_emails_from_home_page=all_emails, all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
-    #def get_contact_info_from_home_page(self, id, index):
+    def get_contact_list_from_group_page(self):
+        wd = self.app.wd
+        self.contact_cache = []
+        for row in wd.find_elements_by_name("entry"):
+            cells = row.find_elements_by_tag_name("td")
+            lastname = cells[1].text
+            firstname = cells[2].text
+            id = cells[0].find_element_by_name("selected[]").get_attribute("id")
+            self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id))
+        return list(self.contact_cache)
+
 
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
@@ -205,6 +215,7 @@ class ContactHelper:
         secondaryphone = re.search("P: (.*)", text).group(1)
         return Contact(homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone, secondaryphone=secondaryphone)
+
 
 
 

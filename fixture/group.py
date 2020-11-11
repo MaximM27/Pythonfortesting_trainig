@@ -148,3 +148,19 @@ class GroupHelper:
     def select_group_by_id(self, id):
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
+    def add_contact_by_id_to_group(self, id):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//select[@name='to_group']//option[@value='%s']" % id).click()
+        wd.find_element_by_css_selector("input[value='Add to']").click()
+        wd.find_element_by_css_selector("a[href='./?group=%s']" % id).click()
+
+    def select_group_by_id_in_addressbook_up(self, id):
+        wd = self.app.wd
+        wd.find_element_by_name("group")
+        wd.find_element_by_css_selector("option[value='%s']" % id).click()
+
+    def get_contact_list_from_all_groups(self):
+        wd = self.app.wd
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_xpath("//option[text()= '[all]']").click()
