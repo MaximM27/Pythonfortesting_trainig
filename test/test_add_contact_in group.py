@@ -13,7 +13,7 @@ def test_add_contact_in_group(app):
         app.group.create_g(Group(name="test"))
     contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
     groups = sorted(db.get_group_list(), key=Group.id_or_max)
-    for c in range(13, 14):
+    for c in range(len(contacts)):
         for g in range(len(groups)):
             c_list = db.get_contacts_not_in_group(Group(id=groups[g].id))
             if contacts[c] in c_list:

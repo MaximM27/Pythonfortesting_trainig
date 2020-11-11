@@ -164,3 +164,8 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element_by_name("group").click()
         wd.find_element_by_xpath("//option[text()= '[all]']").click()
+
+    def remove_contact_by_id_from_group(self, id):
+        wd = self.app.wd
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_css_selector("a[href='./?group=%s']" % id).click()
