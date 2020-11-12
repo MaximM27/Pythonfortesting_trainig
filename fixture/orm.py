@@ -59,6 +59,20 @@ class ORMFixture:
             select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group not in c.groups))
         return self.convert_contacts_to_model(orm_group.contacts)
 
+    @db_session
+    def get_groups_of_contact(self, contact):
+        orm_contact = list(select(c for c in ORMFixture.ORMContact if c.deprecated is None and c.id == contact.id))[0]
+        return self.convert_groups_to_model(
+            select(g for g in ORMFixture.ORMGroup if orm_contact in g.contacts))
+        return self.convert_groups_to_model(orm_contact.groups)
+
+    @db_session
+    def get_not_groups_of_contact(self, contact):
+        orm_contact = list(select(c for c in ORMFixture.ORMContact if c.deprecated is None and c.id == contact.id))[0]
+        return self.convert_groups_to_model(
+            select(g for g in ORMFixture.ORMGroup if orm_contact not in g.contacts))
+        return self.convert_groups_to_model(orm_contact.groups)
+
     def del_spaces(self, s):
         s = s.rstrip(" ")
         s = s.lstrip(" ")
