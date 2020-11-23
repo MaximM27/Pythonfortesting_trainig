@@ -30,13 +30,12 @@ def verify_group_added(db, group_list, new_group):
 def non_empty_group_list(db, app):
     if len(db.get_group_list()) == 0:
         app.group.create_g(Group(name="test"))
-    return db.get_group_list
+    return db.get_group_list()
 
 
-@given('a random group from the list')
+@given('a random group from the list', target_fixture='random_group')
 def random_group(non_empty_group_list):
-    old_groups = non_empty_group_list
-    return random.choice(old_groups)
+    return random.choice(non_empty_group_list)
 
 
 @when('I delete the group from the list')
@@ -47,7 +46,7 @@ def delete_group(app, random_group):
 @then('the new group list is equal to the old group list without the deleted group')
 def verify_group_deleted(db, non_empty_group_list, random_group):
     old_groups = non_empty_group_list
-    new_groups = db.get_group_list
+    new_groups = db.get_group_list()
     assert len(old_groups) - 1 == len(new_groups)
     old_groups.remove(random_group)
     assert old_groups == new_groups
