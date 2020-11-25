@@ -1,5 +1,5 @@
 *** Settings ***
-Library  rf.AddressBook.Address
+Library  rf.AddressBook
 Suite Setup  Init Fixtures
 Suite Teardown  Destroy Fixtures
 
