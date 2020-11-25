@@ -6,4 +6,4 @@ Suite Teardown  Destroy Fixtures
 
 *** Test Cases ***
 Add new group
-    Create Group  name1 header1 footer1
+    Create Group  name1  header1  footer1
